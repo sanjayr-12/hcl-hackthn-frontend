@@ -1,14 +1,10 @@
-import { useState } from 'react'
+type NewsletterSectionProps = {
+  emailValue: string
+  onEmailChange: (value: string) => void
+  onSubscribe: (e: React.FormEvent) => void
+}
 
-export function NewsletterSection() {
-  const [email, setEmail] = useState('')
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault()
-    // TODO: wire to email API when backend is ready
-    setEmail('')
-  }
-
+export function NewsletterSection({ emailValue, onEmailChange, onSubscribe }: NewsletterSectionProps) {
   return (
     <section className="mt-24 bg-stone-900 rounded-3xl p-12 md:p-20 relative overflow-hidden text-center md:text-left flex flex-col md:flex-row items-center gap-12">
       {/* Background image */}
@@ -28,11 +24,11 @@ export function NewsletterSection() {
           Get exclusive access to secret menus, curated restaurant recommendations, and 20% off
           your first three orders.
         </p>
-        <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md">
+        <form onSubmit={onSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md">
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={emailValue}
+            onChange={(e) => onEmailChange(e.target.value)}
             placeholder="Your email address"
             required
             className="flex-1 h-14 rounded-xl bg-stone-800 border-none text-white px-6 focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-stone-500"

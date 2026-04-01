@@ -1,19 +1,19 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Search, ShoppingCart, CircleUser } from 'lucide-react'
 
 type NavbarProps = {
   cartCount?: number
+  onSearchSubmit: (query: string) => void
 }
 
-export function Navbar({ cartCount = 0 }: NavbarProps) {
+export function Navbar({ cartCount = 0, onSearchSubmit }: NavbarProps) {
   const [searchQuery, setSearchQuery] = useState('')
-  const navigate = useNavigate()
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
-      navigate(`/restaurants?search=${encodeURIComponent(searchQuery.trim())}`)
+      onSearchSubmit(searchQuery.trim())
     }
   }
 
@@ -51,7 +51,7 @@ export function Navbar({ cartCount = 0 }: NavbarProps) {
         </div>
 
         {/* Search */}
-        <form onSubmit={handleSearch} className="flex-1 max-w-xl mx-8 hidden md:block">
+        <form onSubmit={handleSubmit} className="flex-1 max-w-xl mx-8 hidden md:block">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant w-4 h-4" />
             <input
