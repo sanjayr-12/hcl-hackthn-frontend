@@ -11,6 +11,7 @@ Keep the guidance aligned with the real project. Do not copy architecture, tooli
 | Frontend         | React 19 + TypeScript 5.9         |
 | Bundler          | Vite 8                            |
 | Styling          | Tailwind CSS v4                   |
+| UI Library       | shadcn/ui                         |
 | State Management | Zustand                           |
 | Pattern          | Container / Presentational        |
 | Linting          | ESLint 9                          |
@@ -24,6 +25,7 @@ npm run dev         # Start dev server
 npm run build       # Type-check + production build
 npm run lint        # Run ESLint
 npm run preview     # Preview production build
+npx shadcn@latest add <component>  # Add a shadcn/ui component
 ```
 
 ## Architecture
@@ -49,6 +51,7 @@ This project uses the container/presentational component pattern.
 - They receive data and handlers through props.
 - They should not read Zustand stores directly.
 - They should not contain business logic or data-fetching logic.
+- Prefer building them with shadcn/ui primitives from `src/components/ui/`.
 
 ### Zustand
 
@@ -65,9 +68,12 @@ Current source layout:
 ```text
 src/
 ├── assets/
+├── components/
+│   └── ui/
 ├── App.css
 ├── App.tsx
 ├── index.css
+├── lib/
 └── main.tsx
 ```
 
@@ -78,11 +84,13 @@ Suggested growth path:
 ```text
 src/
 ├── components/     # Presentational UI
+│   └── ui/         # shadcn/ui primitives
 ├── containers/     # State and feature logic
 ├── routes/         # Thin route/page wrappers
 ├── store/          # Zustand stores
 ├── constants/      # Shared static strings
-├── utils/          # Pure helpers
+├── lib/            # Shared framework helpers such as cn()
+├── utils/          # Pure app/domain helpers
 ├── assets/
 ├── App.tsx
 ├── index.css
@@ -102,6 +110,15 @@ src/
 - Use Tailwind utilities for styling.
 - Keep global styling and theme tokens in `src/index.css`.
 - Avoid inline styles unless there is a strong reason.
+- Keep shadcn theme tokens and imports in `src/index.css`.
+
+## shadcn/ui Rules
+
+- shadcn/ui is installed in this repo.
+- Add new primitives with the shadcn CLI instead of hand-copying component source.
+- Shared class merging lives in `src/lib/utils.ts`.
+- Use `import { cn } from '@/lib/utils'`.
+- Use shadcn/ui building blocks inside presentational components, not inside containers.
 
 ## State and Data Rules
 
