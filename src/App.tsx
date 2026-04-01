@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { HomePage } from '@/modules/home/HomePage'
 import { LoginPage } from '@/modules/auth/LoginPage'
+import { RestaurantDetailPage } from '@/modules/restaurants/RestaurantDetailPage'
 
 // ─── Routes ────────────────────────────────────────────────────
 // To add a new page: import your module's page component and add
@@ -14,9 +15,12 @@ const router = createBrowserRouter([
     path: '/login',
     element: <LoginPage />,
   },
+  {
+    path: '/restaurants/:id',
+    element: <RestaurantDetailPage />,
+  },
   // ── Future modules (add your route below) ──────────────────
   // { path: '/restaurants', element: <RestaurantsPage /> },
-  // { path: '/restaurants/:id', element: <RestaurantDetailPage /> },
   // { path: '/cart', element: <CartPage /> },
   // { path: '/orders', element: <OrdersPage /> },
   // { path: '/register', element: <RegisterPage /> },

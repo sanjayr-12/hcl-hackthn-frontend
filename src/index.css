@@ -184,4 +184,9 @@
     .hide-scrollbar::-webkit-scrollbar {
         display: none;
     }
+
+    /* Ambient Glow — per design spec (on-surface at 6% opacity) */
+    .editorial-shadow {
+        box-shadow: 0px 12px 32px rgba(45, 47, 47, 0.06);
+    }
 }
